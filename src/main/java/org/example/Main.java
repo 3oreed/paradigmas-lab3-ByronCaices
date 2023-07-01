@@ -1,9 +1,39 @@
 package org.example;
 
-import java.util.Scanner;
-
 public class Main {
+
+
     public static void main(String[] args) {
+
+        var filesystem = new FileSystem("mi Sistema");
+        System.out.println(filesystem);
+        filesystem.addDrive("C", "myDrive", 100);
+        filesystem.addDrive("C", "repEtido", 550);
+        filesystem.addDrive("D", "mydrivE99", 554);
+        filesystem.addDrive("D", "otrO mas", 555);
+
+        System.out.println(filesystem);
+
+        filesystem.register("user1");
+        filesystem.register("uSer1");
+
+        System.out.println(filesystem);
+
+    }
+
+}
+
+
+
+
+
+
+
+
+
+
+
+        /*
         Scanner input = new Scanner(System.in);
         final int MENU_EXIT_OPTION = 5;
 
@@ -57,4 +87,4 @@ public class Main {
         System.out.print("5. Exit\n");
         System.out.print("\nEnter your choice: ");
     }
-}
+    */
