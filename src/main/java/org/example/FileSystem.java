@@ -3,7 +3,6 @@ package org.example;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 import java.util.stream.Collectors;
 
 public class FileSystem {
@@ -11,6 +10,8 @@ public class FileSystem {
     String systemName;
     Date systemDate;
     User logedUser;
+
+    String currentPath;
     List<Drive> drives;
     List<User> users;
 
@@ -21,6 +22,8 @@ public class FileSystem {
     public FileSystem(String systemName) {
         this.systemName = systemName.toLowerCase();
         this.systemDate = new Date();
+        this.logedUser = new User();
+        this.currentPath = "";
         this.drives = new ArrayList<>();
         this.users = new ArrayList<>();
     }
@@ -61,8 +64,9 @@ public class FileSystem {
         //Verifica que no exista un drive con la letra
         if (!existingDrive(newdrive)) {
             drives.add(newdrive);
+            System.out.println("\n>> addDrive: Drive añadido con éxito: " + letter.toUpperCase());
         } else {
-            System.out.println("La letra que intentas añadir \"" + letter.toUpperCase() + "\" ya existe :(");
+            System.out.println("\n>> addDrive: La letra que intentas añadir \"" + letter.toUpperCase() + "\" ya existe :(");
         }
 
     }
@@ -73,21 +77,49 @@ public class FileSystem {
         User newUser = new User(newUserName);
         if (!existingUser(newUser)) {
             users.add(newUser);
+            System.out.println("\n>> register: Usuario añadido con éxito: " + newUserName );
         } else {
-            System.out.println("El Usuario que intentas añadir \"" + newUserName + "\" ya existe :(");
+            System.out.println("\n>> register: El Usuario que intentas añadir \"" + newUserName + "\" ya existe :(");
         }
     }
 
+    //RF6
+
+    public void login(String userName){
+        userName = userName.toLowerCase();
+        User regUser = new User(userName);
+
+        if (existingUser(regUser)){
+            this.logedUser = regUser;
+            System.out.println("\n>> login: Usuario \"" + userName + "\" logeado con exito");
+        }
+        else{
+            System.out.println("\n>> login: El usuario \"" + userName + "\" no existe o ya hay una sesion iniciada");
+        }
+    }
+
+    //RF7
+    public void logout(){
+
+        this.logedUser = new User();
+        System.out.println("\n>> logout: Se han cerrado todas las sesiones");
+    }
+
+    //RF8
+
     @Override
     public String toString() {
-        return "FileSystem{" +
+        return "\n###\nFileSystem{" +
                 "systemName='" + systemName + '\'' +
-                ", systemDate=" + systemDate +
-                ", drives=" + drives +
-                ", users=" + users +
+                ",\n systemDate=" + systemDate +
+                ",\n logedUser=" + logedUser +
+                ",\n currentPath=" + currentPath +
+                ",\n drives=" + drives +
+                ",\n users=" + users +
                 '}';
     }
 }
+
 /*
 for (Drive drive : drives) {
         letters.add(drive.getLetter());

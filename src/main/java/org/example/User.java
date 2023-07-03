@@ -7,6 +7,19 @@ public class User {
         this.userName = userName;
     }
 
+    public User() {
+        this.userName = "";
+    }
+
+    public boolean isUserNull() {
+        if (userName == "") {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+
     public String getUserName() {
         return userName;
     }
@@ -14,6 +27,7 @@ public class User {
     public void setUserName(String userName) {
         this.userName = userName.toLowerCase();
     }
+
 
     @Override
     public String toString() {

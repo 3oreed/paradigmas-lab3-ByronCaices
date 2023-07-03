@@ -19,6 +19,15 @@ public class Main {
 
         System.out.println(filesystem);
 
+        filesystem.login("uSer2");
+        filesystem.login("uSer1");
+
+        filesystem.register("USEr2");
+        filesystem.logout();
+        filesystem.login("uSeR2");
+
+        System.out.println(filesystem);
+
     }
 
 }
