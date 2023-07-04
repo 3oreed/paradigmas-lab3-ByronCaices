@@ -43,10 +43,10 @@ public class FileSystem {
         }
     }
 
-    public boolean existingUser(User user) {
+    public boolean existingUser(String username) {
 
         var namesUsers = users.stream().map(User::getUserName).collect(Collectors.toList());
-        String username = user.getUserName();
+        //String username = user.getUserName();
         if (namesUsers.contains(username)) {
             return true;
         } else {
@@ -75,7 +75,7 @@ public class FileSystem {
     public void register(String newUserName) {
         newUserName = newUserName.toLowerCase();
         User newUser = new User(newUserName);
-        if (!existingUser(newUser)) {
+        if (!existingUser(newUserName)) {
             users.add(newUser);
             System.out.println("\n>> register: Usuario añadido con éxito: " + newUserName );
         } else {
@@ -89,7 +89,7 @@ public class FileSystem {
         userName = userName.toLowerCase();
         User regUser = new User(userName);
 
-        if (existingUser(regUser)){
+        if (existingUser(userName)){
             this.logedUser = regUser;
             System.out.println("\n>> login: Usuario \"" + userName + "\" logeado con exito");
         }
