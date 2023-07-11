@@ -14,6 +14,9 @@ public class FileSystem {
     String currentPath;
     List<Drive> drives;
     List<User> users;
+    List<String> paths;
+    List<Item> trashcan;
+    List<Item> content;
 
 
     //RF3 Constructor del System
@@ -26,6 +29,18 @@ public class FileSystem {
         this.currentPath = "";
         this.drives = new ArrayList<>();
         this.users = new ArrayList<>();
+    }
+
+
+    public boolean existingUser(String username) {
+
+        var namesUsers = users.stream().map(User::getUserName).collect(Collectors.toList());
+        //String username = user.getUserName();
+        if (namesUsers.contains(username)) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     public boolean existingDrive(Drive newdrive) {
@@ -43,16 +58,6 @@ public class FileSystem {
         }
     }
 
-    public boolean existingUser(String username) {
-
-        var namesUsers = users.stream().map(User::getUserName).collect(Collectors.toList());
-        //String username = user.getUserName();
-        if (namesUsers.contains(username)) {
-            return true;
-        } else {
-            return false;
-        }
-    }
 
     //RF4
     public void addDrive(String letter, String name, int cap) {
@@ -106,6 +111,7 @@ public class FileSystem {
     }
 
     //RF8
+    public void switchDrive(String letter)
 
     @Override
     public String toString() {
@@ -117,6 +123,18 @@ public class FileSystem {
                 ",\n drives=" + drives +
                 ",\n users=" + users +
                 '}';
+    }
+
+    public Date getSystemDate() {
+        return systemDate;
+    }
+
+    public User getLogedUser() {
+        return logedUser;
+    }
+
+    public String getCurrentPath() {
+        return currentPath;
     }
 }
 
