@@ -1,4 +1,6 @@
-package org.example;
+package myfilesystem;
+
+import myfilesystem.models.FileSystem;
 
 public class Main {
 
@@ -26,6 +28,15 @@ public class Main {
         filesystem.logout();
         filesystem.login("uSeR2");
 
+        //System.out.println(filesystem);
+
+        filesystem.switchDrive("C");
+        System.out.println(filesystem);
+
+        //filesystem.setCurrentPath("c:/");
+        filesystem.mkdir("folder1");
+        filesystem.mkdir("folder2");
+        filesystem.mkdir("fOlder2");
         System.out.println(filesystem);
 
     }

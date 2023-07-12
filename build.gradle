@@ -11,5 +11,5 @@ run {
 }
 
 application {
-    mainClass = 'org.example.Main'
+    mainClass = 'myfilesystem.Main'
 }

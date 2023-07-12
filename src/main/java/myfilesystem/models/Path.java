@@ -1,4 +1,4 @@
-package org.example;
+package myfilesystem.models;
 
 public class Path {
     String path;

@@ -1,4 +1,4 @@
-package org.example;
+package myfilesystem.models;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -22,13 +22,21 @@ public class FileSystem {
     //RF3 Constructor del System
     // Dom: Name
     // Rec: System
+    /**
+     * Crea una nueva instancia de FileSystem.
+     *
+     * @param systemName El nombre del sistema de archivos. Se convertirá a minúsculas.
+     */
     public FileSystem(String systemName) {
         this.systemName = systemName.toLowerCase();
         this.systemDate = new Date();
-        this.logedUser = new User();
+        this.logedUser = null;
         this.currentPath = "";
         this.drives = new ArrayList<>();
         this.users = new ArrayList<>();
+        this.paths = new ArrayList<>();
+        this.trashcan = new ArrayList<>();
+        this.content = new ArrayList<>();
     }
 
 
@@ -37,6 +45,20 @@ public class FileSystem {
         var namesUsers = users.stream().map(User::getUserName).collect(Collectors.toList());
         //String username = user.getUserName();
         if (namesUsers.contains(username)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public boolean existingLetter(String letter) {
+
+
+        var letters = drives.stream()
+                .map(Drive::getLetter)
+                .collect(Collectors.toList());
+
+        if (letters.contains(letter)) {
             return true;
         } else {
             return false;
@@ -82,7 +104,7 @@ public class FileSystem {
         User newUser = new User(newUserName);
         if (!existingUser(newUserName)) {
             users.add(newUser);
-            System.out.println("\n>> register: Usuario añadido con éxito: " + newUserName );
+            System.out.println("\n>> register: Usuario anadido con exito: " + newUserName );
         } else {
             System.out.println("\n>> register: El Usuario que intentas añadir \"" + newUserName + "\" ya existe :(");
         }
@@ -92,10 +114,10 @@ public class FileSystem {
 
     public void login(String userName){
         userName = userName.toLowerCase();
-        User regUser = new User(userName);
 
         if (existingUser(userName)){
-            this.logedUser = regUser;
+            User registeredUser = new User(userName);
+            this.logedUser = registeredUser;
             System.out.println("\n>> login: Usuario \"" + userName + "\" logeado con exito");
         }
         else{
@@ -111,17 +133,63 @@ public class FileSystem {
     }
 
     //RF8
-    public void switchDrive(String letter)
+    public void switchDrive(String letter){
+        letter = letter.toLowerCase();
+        if ((!logedUser.isUserNull()) && (existingLetter(letter))) {
+            this.currentPath = letter + ":/";
+            System.out.println("\n>> switchDrive: Se cambiado a la unidad "+letter.toUpperCase());
+        }
+        else{
+            System.out.println("\n>> switchDrive: no se ha podido cambiar de unidad");
+        }
+    }
+
+    public boolean existingPath(String path){
+        if (paths.contains(path)){
+            return true;
+        }
+        return false;
+    }
+    //RF9
+    public void mkdir(String folderName){
+        //existingPath
+        folderName = folderName.toLowerCase();
+        String newPath = getCurrentPath() + folderName + "/";
+
+        if (!existingPath(newPath)) {
+
+            Folder newFolder = new Folder(folderName);
+            newFolder.setCreateDate(getSystemDate());
+            newFolder.setModDate(getSystemDate());
+            newFolder.setLocation(getCurrentPath());
+            newFolder.setCreator(getLogedUser().getUserName());
+
+            content.add(newFolder);
+            paths.add(newPath);
+            System.out.println("\n>> mkdir: directorio " + folderName + " creado con exito");
+        }
+        else{
+            System.out.println("\n>> mkdir: el directorio que intentas anadir" +
+                               "\n          ya existe en la ruta actual");
+        }
+    }
+
+    //RF10
+    //public void cd()
+
 
     @Override
     public String toString() {
-        return "\n###\nFileSystem{" +
-                "systemName='" + systemName + '\'' +
-                ",\n systemDate=" + systemDate +
-                ",\n logedUser=" + logedUser +
-                ",\n currentPath=" + currentPath +
-                ",\n drives=" + drives +
-                ",\n users=" + users +
+        return "####\nFileSystem{" +
+                "\n~systemName='" + systemName + '\'' +
+                "\n~systemDate=" + systemDate +
+                "\n~logedUser=" + logedUser +
+                "\n~currentPath='" + currentPath + '\'' +
+                "\n~drives=" + drives +
+                "\n~users=" + users +
+                "\n~paths=" + paths +
+                "\n~trashcan=" + trashcan +
+                "\n~content=" + content +
                 '}';
     }
 
@@ -135,6 +203,11 @@ public class FileSystem {
 
     public String getCurrentPath() {
         return currentPath;
+    }
+
+    public void setCurrentPath(String currentPath) {
+        currentPath = currentPath.toLowerCase();
+        this.currentPath = currentPath;
     }
 }
 
