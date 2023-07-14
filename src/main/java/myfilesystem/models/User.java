@@ -1,6 +1,8 @@
 package myfilesystem.models;
 
-public class User implements IUser{
+import myfilesystem.interfaces.IUser;
+
+public class User implements IUser {
     String userName;
 
     public User(String userName) {

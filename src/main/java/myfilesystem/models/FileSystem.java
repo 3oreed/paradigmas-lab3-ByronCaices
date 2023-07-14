@@ -11,10 +11,10 @@ public class FileSystem {
     Date systemDate;
     User logedUser;
 
-    String currentPath;
+    Path currentPath;
     List<Drive> drives;
     List<User> users;
-    List<String> paths;
+    List<Path> paths;
     List<Item> trashcan;
     List<Item> content;
 
@@ -31,7 +31,7 @@ public class FileSystem {
         this.systemName = systemName.toLowerCase();
         this.systemDate = new Date();
         this.logedUser = null;
-        this.currentPath = "";
+        this.currentPath = new Path();
         this.drives = new ArrayList<>();
         this.users = new ArrayList<>();
         this.paths = new ArrayList<>();
@@ -136,7 +136,7 @@ public class FileSystem {
     public void switchDrive(String letter){
         letter = letter.toLowerCase();
         if ((!logedUser.isUserNull()) && (existingLetter(letter))) {
-            this.currentPath = letter + ":/";
+            this.currentPath.ruta = letter + ":/";
             System.out.println("\n>> switchDrive: Se cambiado a la unidad "+letter.toUpperCase());
         }
         else{
@@ -144,8 +144,15 @@ public class FileSystem {
         }
     }
 
-    public boolean existingPath(String path){
-        if (paths.contains(path)){
+    public boolean existingPath(Path newPathObj){
+
+        String newpath = newPathObj.ruta;
+        ArrayList<String> pathStrings = new ArrayList<>();
+        for(Path path : paths ){
+            pathStrings.add(path.ruta);
+        }
+
+        if (pathStrings.contains(newpath)){
             return true;
         }
         return false;
@@ -154,7 +161,9 @@ public class FileSystem {
     public void mkdir(String folderName){
         //existingPath
         folderName = folderName.toLowerCase();
-        String newPath = getCurrentPath() + folderName + "/";
+        //Path newPath = new Path(getCurrentPath().path+folderName+"/");
+        Path newPath = new Path(getCurrentPath().appendFolder(folderName));
+        //String newPath = getCurrentPath() + folderName + "/";
 
         if (!existingPath(newPath)) {
 
@@ -170,12 +179,46 @@ public class FileSystem {
         }
         else{
             System.out.println("\n>> mkdir: el directorio que intentas anadir" +
-                               "\n          ya existe en la ruta actual");
+                               "\n          ya existe en la ruta actual >" + folderName);
         }
     }
 
-    //RF10
-    //public void cd()
+    public void cd(String pathname){
+
+        String pathnamecopy = pathname;
+        //String dia = 3;
+        String nombreDelDia;
+
+        switch (pathname) {
+            case "..":
+                currentPath.backToFolderPadre();
+                System.out.println("\n>> cd: regresa a carpeta anterior" +
+                                   "\n       "+currentPath.ruta+" >");
+                break;
+            case "/":
+                currentPath.backToRoot();
+                System.out.println("\n>> cd: regresa a raiz de la unidad" +
+                                   "\n       "+currentPath.ruta+" >");
+                break;
+
+            default:
+                if (existingPath(new Path(currentPath.appendFolder(pathname)))) {
+                    currentPath.enterFolder(pathname);
+                    System.out.println("\n>> cd: entra a directorio " + pathname +
+                            "\n       " + currentPath.ruta + " >");
+                    break;
+                }
+                System.out.println("\n>> cd: La ruta a la que intentas acceder no existe");
+                break;
+        }
+
+        //metodo que determina una entrada del cd y asigna numero para
+        //realizar operaciones
+
+        //System.out.println(nombreDelDia); // Esto imprimirá "Miércoles"
+
+    }
+
 
 
     @Override
@@ -201,14 +244,16 @@ public class FileSystem {
         return logedUser;
     }
 
-    public String getCurrentPath() {
+    public Path getCurrentPath() {
         return currentPath;
     }
 
     public void setCurrentPath(String currentPath) {
         currentPath = currentPath.toLowerCase();
-        this.currentPath = currentPath;
+        this.currentPath.ruta = currentPath;
     }
+
+
 }
 
 /*

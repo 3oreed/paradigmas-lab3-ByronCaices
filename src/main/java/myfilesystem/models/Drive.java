@@ -1,5 +1,7 @@
 package myfilesystem.models;
 
+import myfilesystem.interfaces.IDrive;
+
 public class Drive implements IDrive {
     String letter;
     String nombre;

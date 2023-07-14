@@ -1,5 +1,7 @@
 package myfilesystem.models;
 
+import myfilesystem.interfaces.IItem;
+
 import java.util.Date;
 
 public abstract class Item implements IItem {
@@ -7,7 +9,7 @@ public abstract class Item implements IItem {
     String itemName;
     Date createDate;
     Date modDate;
-    String location;
+    Path location;
     String creator; //nombre del creador y ya
     //String extension;
 
@@ -38,11 +40,11 @@ public abstract class Item implements IItem {
         this.modDate = modDate;
     }
 
-    public String getLocation() {
+    public Path getLocation() {
         return location;
     }
 
-    public void setLocation(String location) {
+    public void setLocation(Path location) {
         this.location = location;
     }
 

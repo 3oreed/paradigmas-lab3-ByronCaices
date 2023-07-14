@@ -1,14 +1,16 @@
 package myfilesystem.models;
 
+import myfilesystem.interfaces.IFolder;
+
 import java.util.Date;
 
-public class Folder extends Item implements IFolder{
+public class Folder extends Item implements IFolder {
 
     public Folder(){
         this.itemName = "";
         this.createDate = null;
         this.modDate = null;
-        this.location = "";
+        this.location = null;
         this.creator = "";
     }
 
@@ -24,59 +26,10 @@ public class Folder extends Item implements IFolder{
         this.itemName = name;
         this.createDate = null;
         this.modDate = null;
-        this.location = "";
+        this.location = null;
         this.creator = "";
     }
 
-    @Override
-    public String getItemName() {
-        return super.getItemName();
-    }
-
-    @Override
-    public void setItemName(String itemName) {
-        super.setItemName(itemName);
-    }
-
-    @Override
-    public Date getCreateDate() {
-        return super.getCreateDate();
-    }
-
-    @Override
-    public void setCreateDate(Date createDate) {
-        super.setCreateDate(createDate);
-    }
-
-    @Override
-    public Date getModDate() {
-        return super.getModDate();
-    }
-
-    @Override
-    public void setModDate(Date modDate) {
-        super.setModDate(modDate);
-    }
-
-    @Override
-    public String getLocation() {
-        return super.getLocation();
-    }
-
-    @Override
-    public void setLocation(String location) {
-        super.setLocation(location);
-    }
-
-    @Override
-    public String getCreator() {
-        return super.getCreator();
-    }
-
-    @Override
-    public void setCreator(String creator) {
-        super.setCreator(creator);
-    }
 
     @Override
     public String toString() {

@@ -1,4 +1,4 @@
-package myfilesystem.models;
+package myfilesystem.interfaces;
 
 public interface IUser {
     boolean isUserNull();

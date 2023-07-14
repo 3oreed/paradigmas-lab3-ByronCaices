@@ -1,5 +1,7 @@
 package myfilesystem.models;
 
+import myfilesystem.interfaces.IFile;
+
 public class File extends Item implements IFile {
     String extension;
     String text;

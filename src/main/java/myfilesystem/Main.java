@@ -39,6 +39,16 @@ public class Main {
         filesystem.mkdir("fOlder2");
         System.out.println(filesystem);
 
+        filesystem.setCurrentPath("C:/folder1/folder11/");
+        filesystem.cd("/");
+        filesystem.cd("folder2");
+        //filesystem.cd("/folder11");
+        //filesystem.cd("./folder11");
+        filesystem.cd("/");
+        //filesystem.cd("folder1/folder11");
+
+        System.out.println(filesystem);
+
     }
 
 }
