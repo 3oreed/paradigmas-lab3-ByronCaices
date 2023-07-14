@@ -2,7 +2,7 @@ package myfilesystem.models;
 
 import java.util.Date;
 
-public class Folder extends Item{
+public class Folder extends Item implements IFolder{
 
     public Folder(){
         this.itemName = "";

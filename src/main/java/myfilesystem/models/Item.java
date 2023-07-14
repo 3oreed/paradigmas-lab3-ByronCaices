@@ -2,7 +2,7 @@ package myfilesystem.models;
 
 import java.util.Date;
 
-public abstract class Item {
+public abstract class Item implements IItem {
 
     String itemName;
     Date createDate;

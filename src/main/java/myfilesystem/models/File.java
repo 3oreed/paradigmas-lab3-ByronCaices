@@ -1,6 +1,6 @@
 package myfilesystem.models;
 
-public class File extends Item {
+public class File extends Item implements IFile {
     String extension;
     String text;
 

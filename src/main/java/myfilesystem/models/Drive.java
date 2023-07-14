@@ -1,6 +1,6 @@
 package myfilesystem.models;
 
-public class Drive {
+public class Drive implements IDrive {
     String letter;
     String nombre;
     int cap;

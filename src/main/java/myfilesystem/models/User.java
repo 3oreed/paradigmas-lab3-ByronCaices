@@ -1,6 +1,6 @@
 package myfilesystem.models;
 
-public class User {
+public class User implements IUser{
     String userName;
 
     public User(String userName) {
