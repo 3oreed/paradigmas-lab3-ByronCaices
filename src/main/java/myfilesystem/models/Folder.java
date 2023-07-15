@@ -18,7 +18,7 @@ public class Folder extends Item implements IFolder {
         this.itemName = name;
         this.createDate = fl.getSystemDate();
         this.modDate = fl.getSystemDate();
-        this.location = fl.getCurrentPath();
+        this.location = new Path(fl.getCurrentPath().pathToString()+itemName);
         this.creator = fl.getLogedUser().getUserName();
     }
 

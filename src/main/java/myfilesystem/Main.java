@@ -1,5 +1,6 @@
 package myfilesystem;
 
+import myfilesystem.models.File;
 import myfilesystem.models.FileSystem;
 
 public class Main {
@@ -48,6 +49,19 @@ public class Main {
         //filesystem.cd("folder1/folder11");
 
         System.out.println(filesystem);
+
+        myfilesystem.models.File file1 = new File("file1.txt",filesystem);
+        myfilesystem.models.File file2 = new File("file1.txt",filesystem);
+
+        file1.setText("Hola mundo");
+        file2.setText("Hello world");
+
+        filesystem.addFile(file1);
+        filesystem.addFile(file2);
+
+        System.out.println(filesystem);
+
+
 
     }
 

@@ -12,6 +12,8 @@ public abstract class Item implements IItem {
     Path location;
     String creator; //nombre del creador y ya
     //String extension;
+    String extension;
+    String text;
 
 
     public Item() {}
@@ -56,7 +58,23 @@ public abstract class Item implements IItem {
         this.creator = creator;
     }
 
-/*
+    public String getExtension() {
+        return extension;
+    }
+
+    public void setExtension(String extension) {
+        this.extension = extension;
+    }
+
+    public String getText() {
+        return text;
+    }
+
+    public void setText(String text) {
+        this.text = text;
+    }
+
+    /*
     public Item(String name, FileSystem fl){
         this.itemName = name;
         this.createDate = fl.getSystemDate();

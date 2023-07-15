@@ -146,10 +146,10 @@ public class FileSystem {
 
     public boolean existingPath(Path newPathObj){
 
-        String newpath = newPathObj.ruta;
+        String newpath = newPathObj.pathToString();
         ArrayList<String> pathStrings = new ArrayList<>();
         for(Path path : paths ){
-            pathStrings.add(path.ruta);
+            pathStrings.add(path.pathToString());
         }
 
         if (pathStrings.contains(newpath)){
@@ -170,7 +170,7 @@ public class FileSystem {
             Folder newFolder = new Folder(folderName);
             newFolder.setCreateDate(getSystemDate());
             newFolder.setModDate(getSystemDate());
-            newFolder.setLocation(getCurrentPath());
+            newFolder.setLocation(new Path(getCurrentPath().pathToString()+folderName+"/"));
             newFolder.setCreator(getLogedUser().getUserName());
 
             content.add(newFolder);
@@ -185,9 +185,9 @@ public class FileSystem {
 
     public void cd(String pathname){
 
-        String pathnamecopy = pathname;
+        //String pathnamecopy = pathname;
         //String dia = 3;
-        String nombreDelDia;
+        //String nombreDelDia;
 
         switch (pathname) {
             case "..":
@@ -205,19 +205,86 @@ public class FileSystem {
                 if (existingPath(new Path(currentPath.appendFolder(pathname)))) {
                     currentPath.enterFolder(pathname);
                     System.out.println("\n>> cd: entra a directorio " + pathname +
-                            "\n       " + currentPath.ruta + " >");
+                                       "\n       " + currentPath.ruta + " >");
                     break;
                 }
                 System.out.println("\n>> cd: La ruta a la que intentas acceder no existe");
                 break;
         }
-
-        //metodo que determina una entrada del cd y asigna numero para
-        //realizar operaciones
-
-        //System.out.println(nombreDelDia); // Esto imprimirá "Miércoles"
-
     }
+
+    public void addFile(File newfile) {
+
+        Path newFilePath = new Path(newfile.getLocation().pathToString());
+
+        if (existingPath(newFilePath)) {
+            System.out.println("test1 passed");
+            // Si ya existe un archivo en la ruta actual con el mismo nombre
+            // actualiza tipo (extension) y contenido de ESE archivo con el del nuevo File
+            for (Item item : content) {
+
+                System.out.println(item.getLocation().pathToString()+" == "+newFilePath.pathToString());
+
+                if (item.getLocation().pathToString().equals(newFilePath.pathToString())) {
+                    System.out.println("test2 passed");
+                    item.setExtension(newfile.getExtension());
+                    item.setText(newfile.getText());
+                    System.out.println("\n>> addFile: el archivo que intentas anadir ya existe en la ruta actual" +
+                                       "\n   por lo que se ha modificado su extension (tipo) y contenido (text)\n"+ item);
+                }
+            }
+        }else{
+            System.out.println("test3 passed");
+            content.add(newfile);
+            paths.add(newfile.getLocation());
+            System.out.println("\n>> addFile: el archivo "+newfile.getItemName()+" ha sido anadido en la ruta actual");
+        }
+    }
+
+    public Item searchFileByName(String filename){
+        File myfile = new File();
+        for (Item item : content){
+            if (item.getItemName().equals(filename)){
+                return item;
+            }
+        }
+        return null;
+    }
+
+
+
+    public void del(String filepathern){
+
+        //Si es filename entonces busco el File
+        if (!filepathern.contains("*")){
+            Item myfile = searchFileByName(filepathern);
+        }
+
+        //Obtengo extension del nombre
+        String extension = "";
+        int dotIndex = filepathern.lastIndexOf('.');
+        if (dotIndex >= 0) {
+            extension = filepathern.substring(dotIndex + 1);
+        }
+
+        if (filepathern.equals("*."+extension)){
+            ArrayList<Item> newContent = new ArrayList<>();
+            for (Item item : content) {
+                if (!item.getExtension().equals(extension) &&
+                        item.getLocation().pathToString().contains(currentPath.pathToString())) {
+                    newContent.add(item);
+                }
+            }
+            content = newContent; //agrega lista con los .extension eliminados
+        }
+
+        else if (filepathern.equals("*.*"))
+
+        else if(filepathern.equals()){
+
+        }
+    }
+
 
 
 

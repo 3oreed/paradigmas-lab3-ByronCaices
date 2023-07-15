@@ -2,19 +2,23 @@ package myfilesystem.models;
 
 import myfilesystem.interfaces.IFile;
 
+import java.util.Date;
+
 public class File extends Item implements IFile {
-    String extension;
-    String text;
+    //String extension;
+    //String text;
 
     public File(String name, FileSystem fl){
         this.itemName = name;
         this.createDate = fl.getSystemDate();
         this.modDate = fl.getSystemDate();
-        this.location = fl.getCurrentPath();
+        this.location = new Path(fl.getCurrentPath().pathToString()+itemName);
         this.creator = fl.getLogedUser().getUserName();
         this.extension = getExtFromName(name);
         this.text = "";
     }
+
+
 
     public String getExtFromName(String filename) {
 
@@ -29,14 +33,74 @@ public class File extends Item implements IFile {
         //System.out.println("La extensión del archivo es: " + extension);
     }
 
+    public File() {
+        super();
+    }
+
+    public String getExtension() {
+        return extension;
+    }
+
+    public String getText() {
+        return text;
+    }
+
+    @Override
+    public String getItemName() {
+        return super.getItemName();
+    }
+
+    @Override
+    public void setItemName(String itemName) {
+        super.setItemName(itemName);
+    }
+
+    @Override
+    public Date getCreateDate() {
+        return super.getCreateDate();
+    }
+
+    @Override
+    public void setCreateDate(Date createDate) {
+        super.setCreateDate(createDate);
+    }
+
+    @Override
+    public Date getModDate() {
+        return super.getModDate();
+    }
+
+    @Override
+    public void setModDate(Date modDate) {
+        super.setModDate(modDate);
+    }
+
+    @Override
+    public Path getLocation() {
+        return super.getLocation();
+    }
+
+    @Override
+    public void setLocation(Path location) {
+        super.setLocation(location);
+    }
+
+    @Override
+    public String getCreator() {
+        return super.getCreator();
+    }
+
+    @Override
+    public void setCreator(String creator) {
+        super.setCreator(creator);
+    }
+
     @Override
     public String toString() {
         return "File{" +
                 "extension='" + extension + '\'' +
                 ", text='" + text + '\'' +
                 ", itemName='" + itemName + '\'' +
-                ", createDate=" + createDate +
-                ", modDate=" + modDate +
                 ", location='" + location + '\'' +
                 ", creator=" + creator +
                 '}';

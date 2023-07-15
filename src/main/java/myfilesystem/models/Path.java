@@ -55,6 +55,10 @@ public class Path {
         return ruta;
     }
 
+    public String pathToString() {
+        return ruta;
+    }
+
     @Override
     public String toString() {
         return "Path{" +
