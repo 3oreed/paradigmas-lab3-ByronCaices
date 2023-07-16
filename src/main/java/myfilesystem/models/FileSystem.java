@@ -270,17 +270,24 @@ public class FileSystem {
         if (filepathern.equals("*."+extension)){
             ArrayList<Item> newContent = new ArrayList<>();
             for (Item item : content) {
-                if (!item.getExtension().equals(extension) &&
+                if (!item.getExtension().equals(extension) && //Si no es .txt Y si contiene el current path
                         item.getLocation().pathToString().contains(currentPath.pathToString())) {
+                    //entonces lo agregamos al nuevo content
                     newContent.add(item);
                 }
             }
             content = newContent; //agrega lista con los .extension eliminados
         }
 
-        else if (filepathern.equals("*.*"))
-
-        else if(filepathern.equals()){
+        else if (filepathern.equals("*.*") || filepathern.equals("*")){
+            ArrayList<Item> newContent = new ArrayList<>();
+            for (Item item : content) {
+                if (!item.getExtension().equals(extension) && //Si no es .txt Y si contiene el current path
+                        item.getLocation().pathToString().contains(currentPath.pathToString())) {
+                    //entonces lo agregamos al nuevo content
+                    newContent.add(item);
+                }
+            }
 
         }
     }
