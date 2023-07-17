@@ -1,21 +1,14 @@
-package myfilesystem;
+package codigoFuente_20915795_CaicesLima;
 
-import myfilesystem.models.File;
-import myfilesystem.models.FileSystem;
-import myfilesystem.models.Path;
-import myfilesystem.ui.Menu;
+import codigoFuente_20915795_CaicesLima.ui_20915795_CaicesLima.Menu_20915795_CaicesLima;
 
-public class Main {
-
+public class Main_20915795_CaicesLima {
 
     public static void main(String[] args) {
-
-
-        Menu myMenu = new Menu();
+        Menu_20915795_CaicesLima myMenu = new Menu_20915795_CaicesLima();
         myMenu.menu();
-
-
     }
+}
 /*
     var filesystem = new FileSystem("mi Sistema");
         System.out.println(filesystem);
@@ -74,8 +67,3 @@ public class Main {
         filesystem.del("file1.txt");
         System.out.println(filesystem);
         */
-
-
-}
-
-

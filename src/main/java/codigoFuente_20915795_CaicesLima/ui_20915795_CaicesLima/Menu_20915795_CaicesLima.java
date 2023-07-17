@@ -1,24 +1,32 @@
-package myfilesystem.ui;
+package codigoFuente_20915795_CaicesLima.ui_20915795_CaicesLima;
 
-import myfilesystem.interfaces.IMenu;
-import myfilesystem.models.File;
-import myfilesystem.models.FileSystem;
+import codigoFuente_20915795_CaicesLima.interfaces_20915795_CaicesLima.IMenu_20915795_CaicesLima;
+import codigoFuente_20915795_CaicesLima.models_20915795_CaicesLima.File_20915795_CaicesLima;
+import codigoFuente_20915795_CaicesLima.models_20915795_CaicesLima.FileSystem_20915795_CaicesLima;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
 
-public class Menu implements IMenu {
-    int opCounter;
-    List<String> opsHistory;
+public class Menu_20915795_CaicesLima implements IMenu_20915795_CaicesLima {
 
-    public Menu() {
+    private int opCounter;
+    private List<String> opsHistory;
+    private FileSystem_20915795_CaicesLima fileSystem;
+
+    /**
+     * Descripción: Constructor menu
+     * @author Byron Caices
+     */
+    public Menu_20915795_CaicesLima() {
         this.opCounter = 0;
     }
 
-
-
+    /**
+     * Descripción: Menu del sistema, se encarga de realizar operaciones sobre el sistema
+     * @author Byron Caices
+     */
     public void menu(){
         Scanner input = new Scanner(System.in);
 
@@ -29,7 +37,7 @@ public class Menu implements IMenu {
         flag = false;
         opsHistory = new ArrayList<>();
 
-        FileSystem fileSystem = new FileSystem();
+        this.fileSystem = new FileSystem_20915795_CaicesLima("");
 
         do {
 
@@ -54,17 +62,20 @@ public class Menu implements IMenu {
                     break;
 
                 case 1:
-                    if (!fileSystem.getCurrentPath().pathToString().equals("") && flag) {
-                        String currentPath = fileSystem.getCurrentPath().pathToString();
-                        System.out.println("---------------------------------------------------------");
-                        System.out.println("\n# Ruta Actual del Sistema");
-                        System.out.println("    >> "+currentPath);
-                        break;
+                    if (flag) {
+                        if (!fileSystem.getCurrentPath().pathToString().equals("") ) { //&& flag
+                            String currentPath = fileSystem.getCurrentPath().pathToString();
+                            System.out.println("---------------------------------------------------------");
+                            System.out.println("\n# Ruta Actual del Sistema");
+                            System.out.println("    >> " + currentPath);
+                            break;
+                        }
                     }
                     else{
                         System.out.println("---------------------------------------------------------");
                         System.out.println("\nAun no has creado un Sistema de Archivos o fijado una ruta");
                     }
+
 
                     break;
 
@@ -324,7 +335,7 @@ public class Menu implements IMenu {
                     System.out.println("---------------------------------------------------------");
 
                     //Metodo+addOp
-                    File newFile = new File(addfilename,fileSystem);
+                    File_20915795_CaicesLima newFile = new File_20915795_CaicesLima(addfilename,fileSystem);
                     newFile.setText(addfiletext);
                     fileSystem.addFile(newFile);
                     opsHistory.add("addFile: Se agrego el archivo "+addfilename+ " en la ruta actual <-- " + new Date());
@@ -367,12 +378,15 @@ public class Menu implements IMenu {
                     break;
 
                 case 13:
-                    System.out.println("Bye.. Que la Fuerza te acompañe");
+                    System.out.println("---------------------------------------------------------");
+                    System.out.println("\n----------------- PROGRAMA FINALIZADO -------------------");
+                    System.out.println("\n---------------------------------------------------------");
                     System.exit(0);
                     break;
 
                 default:
-                    System.out.println(choice + " no es una opcion valida! Selecciona una opcion correcta.");
+                    System.out.println("---------------------------------------------------------");
+                    System.out.println("\n>> "+choice + " no es una opcion valida! Selecciona una opcion correcta.");
 
             }
             if (!fileSystem.getCurrentPath().pathToString().equals(""))
@@ -383,6 +397,10 @@ public class Menu implements IMenu {
         //return true;
     }
 
+    /**
+     * Descripción: Imprime menu por consola
+     * @author Byron Caices
+     */
     public void printMenu() {
         System.out.println("\n---------------------------------------------------------");
 

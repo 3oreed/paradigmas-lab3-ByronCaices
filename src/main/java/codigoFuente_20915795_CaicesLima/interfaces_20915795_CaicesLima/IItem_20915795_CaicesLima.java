@@ -1,32 +1,20 @@
-package myfilesystem.interfaces;
+package codigoFuente_20915795_CaicesLima.interfaces_20915795_CaicesLima;
 
 import java.util.Date;
-import myfilesystem.models.Path;
+import codigoFuente_20915795_CaicesLima.models_20915795_CaicesLima.Path_20915795_CaicesLima;
 
-public interface IItem {
+public interface IItem_20915795_CaicesLima {
 
     String getItemName();
-
     void setCreateDate(Date createDate);
-
     Date getModDate();
-
     void setModDate(Date modDate);
-
-    Path getLocation();
-
-    void setLocation(Path location);
-
-
+    Path_20915795_CaicesLima getLocation();
+    void setLocation(Path_20915795_CaicesLima location);
     void setCreator(String creator);
-
     String getExtension();
-
     void setExtension(String extension);
-
     String getText();
-
     void setText(String text);
-
     boolean isFile();
 }
