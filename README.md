@@ -1,24 +1,18 @@
-# Project Template Java Menu
+# Laboratorio 3 Paradigmas de Programación: Programación Orientada a Objetos
 
-Siguiendo indicaciones del profesor Gonzalo podemos clonar su repo del menu 
-y a partir de este proyecto vamos construyendo el lab3 
+Autor: Byron Caices Lima
 
-This project works with Gradle.
+Seccion: A-1
 
-## Build
+## Prerrequisitos de ejecucion 
 
-Linux and MacOS
+Java 20: OpenJDK 20.0.1 
 
-```
-./gradlew build
-```
+## Cómo ejecutar el programa
 
-## Run
-
-Linux and MacOS
+El proyecto posee un Executable Java File (.jar) el cual se ejecuta por consola con el comando
 
 ```
-./gradlew run
+java -jar lab3_20915795_Caices.jar
 ```
-
-If you use Windows, execute the gradlew.bat
+Luego de ejecutar el programa solo hay que seguir las instrucciones por pantalla.
