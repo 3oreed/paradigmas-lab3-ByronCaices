@@ -46,4 +46,5 @@ con eso se ejecutará el archivo
 
 #### nota: Yo por defecto dejé el archivo EJECUTABLE_lab3_20915795_Caices.jar el cual debe ejecutarse sin problemas. Si presenta problemas debe seguir los pasos de (*)
 
+Según sugerencias del profesor Gonzalo Martinez podiamos clonar su repo, la seccion del menú, para poder guiarnos, por eso aparece un commit de él hace varios meses.
 
