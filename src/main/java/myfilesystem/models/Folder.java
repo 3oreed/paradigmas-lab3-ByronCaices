@@ -15,6 +15,7 @@ public class Folder extends Item implements IFolder {
     }
 
     public Folder(String name, FileSystem fl){
+        name.toLowerCase();
         this.itemName = name;
         this.createDate = fl.getSystemDate();
         this.modDate = fl.getSystemDate();
@@ -23,11 +24,20 @@ public class Folder extends Item implements IFolder {
     }
 
     public Folder(String name){
+        name.toLowerCase();
         this.itemName = name;
         this.createDate = null;
         this.modDate = null;
         this.location = null;
         this.creator = "";
+    }
+
+    @Override
+    public boolean isFolder(){
+        if (extension==""){
+            return true;
+        }
+        return false;
     }
 
 

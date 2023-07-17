@@ -9,6 +9,7 @@ public class File extends Item implements IFile {
     //String text;
 
     public File(String name, FileSystem fl){
+        name.toLowerCase();
         this.itemName = name;
         this.createDate = fl.getSystemDate();
         this.modDate = fl.getSystemDate();
@@ -94,6 +95,15 @@ public class File extends Item implements IFile {
     public void setCreator(String creator) {
         super.setCreator(creator);
     }
+
+    @Override
+    public boolean isFile(){
+        if (extension!=""){
+            return true;
+        }
+        return false;
+    }
+
 
     @Override
     public String toString() {

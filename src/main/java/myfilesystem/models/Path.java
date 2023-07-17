@@ -30,7 +30,7 @@ public class Path {
     }
 
 
-    public void backToFolderPadre() {
+    public String backToFolderPadre2() {
 
         //c:/folder1/ -> c:/folder1
         String aux = ruta.substring(0,ruta.length()-1);
@@ -41,7 +41,24 @@ public class Path {
             this.ruta = aux.substring(0,ultimoIndice+1);
 
             }
+        return ruta;
         }
+
+    public String backToFolderPadre() {
+
+        //c:/folder1/ -> c:/folder1
+        String aux = ruta.substring(0,ruta.length()-1);
+        int ultimoIndice = aux.lastIndexOf("/");
+        String res = "";
+
+        if (ultimoIndice > 0 && !isRoot()){
+
+            //this.ruta = aux.substring(0,ultimoIndice+1);
+            res = aux.substring(0,ultimoIndice+1);
+
+        }
+        return res;
+    }
         //return this.ruta = ruta;
 
 

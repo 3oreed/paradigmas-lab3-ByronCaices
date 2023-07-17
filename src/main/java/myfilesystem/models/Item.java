@@ -50,6 +50,7 @@ public abstract class Item implements IItem {
         this.location = location;
     }
 
+
     public String getCreator() {
         return creator;
     }
@@ -72,6 +73,20 @@ public abstract class Item implements IItem {
 
     public void setText(String text) {
         this.text = text;
+    }
+
+    public boolean isFolder(){
+        if (extension==""){
+            return true;
+        }
+        return false;
+    }
+
+    public boolean isFile(){
+        if (extension!=""){
+            return true;
+        }
+        return false;
     }
 
     /*

@@ -10,7 +10,6 @@ public class FileSystem {
     String systemName;
     Date systemDate;
     User logedUser;
-
     Path currentPath;
     List<Drive> drives;
     List<User> users;
@@ -18,6 +17,17 @@ public class FileSystem {
     List<Item> trashcan;
     List<Item> content;
 
+    public FileSystem() {
+        this.systemName = "".toLowerCase();
+        this.systemDate = new Date();
+        this.logedUser = null;
+        this.currentPath = new Path();
+        this.drives = new ArrayList<>();
+        this.users = new ArrayList<>();
+        this.paths = new ArrayList<>();
+        this.trashcan = new ArrayList<>();
+        this.content = new ArrayList<>();
+    }
 
     //RF3 Constructor del System
     // Dom: Name
@@ -137,16 +147,30 @@ public class FileSystem {
         letter = letter.toLowerCase();
         if ((!logedUser.isUserNull()) && (existingLetter(letter))) {
             this.currentPath.ruta = letter + ":/";
-            System.out.println("\n>> switchDrive: Se cambiado a la unidad "+letter.toUpperCase());
+            System.out.println("\n>> switchDrive: Se ha cambiado a la unidad "+letter.toUpperCase());
         }
         else{
             System.out.println("\n>> switchDrive: no se ha podido cambiar de unidad");
         }
     }
 
+
     public boolean existingPath(Path newPathObj){
 
         String newpath = newPathObj.pathToString();
+        ArrayList<String> pathStrings = new ArrayList<>();
+        for(Item item : content ){
+            pathStrings.add(item.getLocation().pathToString());
+        }
+
+        if (pathStrings.contains(newpath)){
+            return true;
+        }
+        return false;
+    }
+    public boolean existingPath(String newpath){
+
+        //String newpath = newPathObj.pathToString();
         ArrayList<String> pathStrings = new ArrayList<>();
         for(Path path : paths ){
             pathStrings.add(path.pathToString());
@@ -172,7 +196,9 @@ public class FileSystem {
             newFolder.setModDate(getSystemDate());
             newFolder.setLocation(new Path(getCurrentPath().pathToString()+folderName+"/"));
             newFolder.setCreator(getLogedUser().getUserName());
+            newFolder.setExtension("");
 
+            System.out.println(newFolder);
             content.add(newFolder);
             paths.add(newPath);
             System.out.println("\n>> mkdir: directorio " + folderName + " creado con exito");
@@ -191,7 +217,7 @@ public class FileSystem {
 
         switch (pathname) {
             case "..":
-                currentPath.backToFolderPadre();
+                currentPath = new Path(currentPath.backToFolderPadre());
                 System.out.println("\n>> cd: regresa a carpeta anterior" +
                                    "\n       "+currentPath.ruta+" >");
                 break;
@@ -215,7 +241,10 @@ public class FileSystem {
 
     public void addFile(File newfile) {
 
-        Path newFilePath = new Path(newfile.getLocation().pathToString());
+        Path newFilePath = new Path(currentPath.pathToString()+newfile.getItemName());
+        newfile.setLocation(new Path(currentPath.pathToString()+newfile.getItemName()));
+        //System.out.println("## LOCATION: "+ newfile.getLocation().pathToString());
+
 
         if (existingPath(newFilePath)) {
             System.out.println("test1 passed");
@@ -234,7 +263,13 @@ public class FileSystem {
                 }
             }
         }else{
+            //newfile.setLocation(new Path(currentPath.pathToString()+newfile.getItemName()));
+            //newfile.setModDate(new Date());
+
             System.out.println("test3 passed");
+            System.out.println(currentPath);
+            System.out.println(newfile.getItemName());
+            System.out.println(newfile.getLocation().pathToString());
             content.add(newfile);
             paths.add(newfile.getLocation());
             System.out.println("\n>> addFile: el archivo "+newfile.getItemName()+" ha sido anadido en la ruta actual");
@@ -252,42 +287,104 @@ public class FileSystem {
     }
 
 
-
     public void del(String filepathern){
+        filepathern.toLowerCase();
 
-        //Si es filename entonces busco el File
-        if (!filepathern.contains("*")){
-            Item myfile = searchFileByName(filepathern);
+        int type = 0;
+        //Determina si es folder 2, file 1 o filepathern 3
+        if (filepathern.contains("*")) {
+            type = 3;
+        } else if (filepathern.contains(".") && !filepathern.contains("*")) {
+            type = 1;
+        }
+        else{
+            type = 2;
+            filepathern=filepathern+"/"; //dir name
         }
 
-        //Obtengo extension del nombre
-        String extension = "";
-        int dotIndex = filepathern.lastIndexOf('.');
-        if (dotIndex >= 0) {
-            extension = filepathern.substring(dotIndex + 1);
+        String rutaFilePathern = currentPath.pathToString()+filepathern;
+        ArrayList<Item> newContent = new ArrayList<>();
+
+        if (!existingPath(rutaFilePathern)){
+            type = 4; //no existe archivo
         }
 
-        if (filepathern.equals("*."+extension)){
-            ArrayList<Item> newContent = new ArrayList<>();
-            for (Item item : content) {
-                if (!item.getExtension().equals(extension) && //Si no es .txt Y si contiene el current path
-                        item.getLocation().pathToString().contains(currentPath.pathToString())) {
-                    //entonces lo agregamos al nuevo content
-                    newContent.add(item);
+
+        switch (type){
+            case 1:
+                if (existingPath(rutaFilePathern)) {
+                    for (Item item : content) {
+                        System.out.println(item.getLocation().pathToString() + " != " + rutaFilePathern);
+                        if (!item.getLocation().pathToString().equals(rutaFilePathern)) {
+                            System.out.println("test44");
+                            newContent.add(item);
+                        } else {
+                            trashcan.add(item);
+                            System.out.println("test4");
+                        }
+                    }
+                    System.out.println("\n>> del: se ha eliminado el archivo " + filepathern);
                 }
-            }
-            content = newContent; //agrega lista con los .extension eliminados
-        }
-
-        else if (filepathern.equals("*.*") || filepathern.equals("*")){
-            ArrayList<Item> newContent = new ArrayList<>();
-            for (Item item : content) {
-                if (!item.getExtension().equals(extension) && //Si no es .txt Y si contiene el current path
-                        item.getLocation().pathToString().contains(currentPath.pathToString())) {
-                    //entonces lo agregamos al nuevo content
-                    newContent.add(item);
+                break;
+            case 2:
+                if (existingPath(rutaFilePathern)) {
+                    for (Item item : content) {
+                        if (!item.getLocation().pathToString().contains(rutaFilePathern)) {
+                            newContent.add(item);
+                        } else {
+                            trashcan.add(item);
+                        }
+                    }
+                    System.out.println("\n>> del: se ha eliminado el directorio " + filepathern);
                 }
-            }
+            case 3:
+                String extension = "";
+                int dotIndex = filepathern.lastIndexOf('.');
+                if (dotIndex >= 0) {
+                    extension = filepathern.substring(dotIndex + 1);
+                }
+
+                if (filepathern.equals("*." + extension) && extension.length()>1) {
+                    //ArrayList<Item> newContent = new ArrayList<>();
+                    for (Item item : content) {
+                        //si extension es igual y se encuentra en el current path
+                        //Si no es .txt Y si contiene el current path
+                        if (item.getExtension().equals(extension) && item.getLocation().backToFolderPadre().equals(currentPath.pathToString())) {
+                            //entonces lo mandamos a papelera
+                            System.out.println("3433");
+                            System.out.println(paths);
+                            trashcan.add(item);
+                            System.out.println(paths);
+                        } else {
+                            newContent.add(item);
+                        }
+                    }
+                    System.out.println("\n>> del: se han eliminado todos los archivos ."+ extension +" de la ruta actual");
+                    content = newContent; //agrega lista con los .extension eliminados
+                }
+                // ### 2 borrar todos los archivos de una ruta
+                else if (filepathern.equals("*.*") || filepathern.equals("*")) {
+                    //ArrayList<Item> newContent = new ArrayList<>();
+                    for (Item item : content) {
+
+                        //(si es File y se encuentra en el current path) me lo salto
+                        //si es folder y se encuentra en el current path -- pa dentro
+                        //si es file y no se encuentra en el current path -- pa dentro
+                        if (item.isFile() && item.getLocation().backToFolderPadre().equals(currentPath.pathToString())) {
+                            //lo mando a la papelera
+                            trashcan.add(item);
+                        } else {
+                            newContent.add(item);
+                        }
+                    }
+                    System.out.println("\n>> del: se han eliminado todos los archivos de la ruta actual");
+                    content = newContent;
+                }
+                break;
+
+            default:
+                System.out.println("\n>> del: el item que intentas eliminar no existe en al ruta actual");
+                break;
 
         }
     }
@@ -295,18 +392,19 @@ public class FileSystem {
 
 
 
+
     @Override
     public String toString() {
-        return "####\nFileSystem{" +
-                "\n~systemName='" + systemName + '\'' +
-                "\n~systemDate=" + systemDate +
-                "\n~logedUser=" + logedUser +
-                "\n~currentPath='" + currentPath + '\'' +
-                "\n~drives=" + drives +
-                "\n~users=" + users +
-                "\n~paths=" + paths +
-                "\n~trashcan=" + trashcan +
-                "\n~content=" + content +
+        return "\n#### TU FileSystem ####\n" +
+                "\n~ systemName='" + systemName + '\'' +
+                "\n~ systemDate=" + systemDate +
+                "\n~ logedUser=" + logedUser +
+                "\n~ currentPath='" + currentPath + '\'' +
+                "\n~ drives=" + drives +
+                "\n~ users=" + users +
+                "\n~ paths=" + paths +
+                "\n~ trashcan=" + trashcan +
+                "\n~ content=" + content +
                 '}';
     }
 
@@ -327,7 +425,66 @@ public class FileSystem {
         this.currentPath.ruta = currentPath;
     }
 
+    public String getSystemName() {
+        return systemName;
+    }
 
+    public void setSystemName(String systemName) {
+        systemName.toLowerCase();
+        this.systemName = systemName;
+    }
+
+    public void setSystemDate(Date systemDate) {
+        this.systemDate = systemDate;
+    }
+
+    public void setLogedUser(User logedUser) {
+        this.logedUser = logedUser;
+    }
+
+    public void setCurrentPath(Path currentPath) {
+        this.currentPath = currentPath;
+    }
+
+    public List<Drive> getDrives() {
+        return drives;
+    }
+
+    public void setDrives(List<Drive> drives) {
+        this.drives = drives;
+    }
+
+    public List<User> getUsers() {
+        return users;
+    }
+
+    public void setUsers(List<User> users) {
+        this.users = users;
+    }
+
+    public List<Path> getPaths() {
+        return paths;
+    }
+
+    public void setPaths(List<Path> paths) {
+        this.paths = paths;
+    }
+
+    public List<Item> getTrashcan() {
+        return trashcan;
+    }
+
+    public void setTrashcan(List<Item> trashcan) {
+        this.trashcan = trashcan;
+    }
+
+    public List<Item> getContent() {
+        return content;
+    }
+
+    public void setContent(List<Item> content) {
+        this.content = content;
+    }
 }
 
 /*
