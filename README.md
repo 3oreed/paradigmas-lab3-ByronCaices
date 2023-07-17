@@ -4,6 +4,10 @@ Autor: Byron Caices Lima
 
 Seccion: A-1
 
+## Codigo Fuente
+El directorio de codigoFuente_20915795_Caices se encuentra en src\main\java\codigoFuente_20915795_Caices
+En este directorio se puede encontrar los packetes Interfaces, Models y UI además del Main_20915795_Caices.java
+
 ## Prerrequisitos de ejecucion
 
 Java 20: OpenJDK 20.0.1 
