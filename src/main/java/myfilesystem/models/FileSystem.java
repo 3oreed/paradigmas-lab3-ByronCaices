@@ -1,11 +1,13 @@
 package myfilesystem.models;
 
+import myfilesystem.interfaces.IFileSystem;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class FileSystem {
+public class FileSystem implements IFileSystem {
 
     String systemName;
     Date systemDate;
@@ -20,7 +22,7 @@ public class FileSystem {
     public FileSystem() {
         this.systemName = "".toLowerCase();
         this.systemDate = new Date();
-        this.logedUser = null;
+        this.logedUser = new User();
         this.currentPath = new Path();
         this.drives = new ArrayList<>();
         this.users = new ArrayList<>();
@@ -40,7 +42,7 @@ public class FileSystem {
     public FileSystem(String systemName) {
         this.systemName = systemName.toLowerCase();
         this.systemDate = new Date();
-        this.logedUser = null;
+        this.logedUser = new User();
         this.currentPath = new Path();
         this.drives = new ArrayList<>();
         this.users = new ArrayList<>();
@@ -125,7 +127,7 @@ public class FileSystem {
     public void login(String userName){
         userName = userName.toLowerCase();
 
-        if (existingUser(userName)){
+        if (existingUser(userName) && logedUser.isUserNull()){
             User registeredUser = new User(userName);
             this.logedUser = registeredUser;
             System.out.println("\n>> login: Usuario \"" + userName + "\" logeado con exito");
@@ -198,10 +200,11 @@ public class FileSystem {
             newFolder.setCreator(getLogedUser().getUserName());
             newFolder.setExtension("");
 
-            System.out.println(newFolder);
+            //System.out.println(newFolder);
             content.add(newFolder);
             paths.add(newPath);
-            System.out.println("\n>> mkdir: directorio " + folderName + " creado con exito");
+            System.out.println("\n>> mkdir: directorio " + folderName + " creado con exito" +
+                               "\n          ->  "+newPath.pathToString());
         }
         else{
             System.out.println("\n>> mkdir: el directorio que intentas anadir" +
@@ -247,7 +250,7 @@ public class FileSystem {
 
 
         if (existingPath(newFilePath)) {
-            System.out.println("test1 passed");
+            //System.out.println("test1 passed");
             // Si ya existe un archivo en la ruta actual con el mismo nombre
             // actualiza tipo (extension) y contenido de ESE archivo con el del nuevo File
             for (Item item : content) {
@@ -255,7 +258,7 @@ public class FileSystem {
                 System.out.println(item.getLocation().pathToString()+" == "+newFilePath.pathToString());
 
                 if (item.getLocation().pathToString().equals(newFilePath.pathToString())) {
-                    System.out.println("test2 passed");
+                    //System.out.println("test2 passed");
                     item.setExtension(newfile.getExtension());
                     item.setText(newfile.getText());
                     System.out.println("\n>> addFile: el archivo que intentas anadir ya existe en la ruta actual" +
@@ -266,31 +269,21 @@ public class FileSystem {
             //newfile.setLocation(new Path(currentPath.pathToString()+newfile.getItemName()));
             //newfile.setModDate(new Date());
 
-            System.out.println("test3 passed");
-            System.out.println(currentPath);
-            System.out.println(newfile.getItemName());
-            System.out.println(newfile.getLocation().pathToString());
+            //System.out.println("test3 passed");
+            //System.out.println(currentPath);
+            //System.out.println(newfile.getItemName());
+            //System.out.println(newfile.getLocation().pathToString());
             content.add(newfile);
             paths.add(newfile.getLocation());
             System.out.println("\n>> addFile: el archivo "+newfile.getItemName()+" ha sido anadido en la ruta actual");
         }
     }
 
-    public Item searchFileByName(String filename){
-        File myfile = new File();
-        for (Item item : content){
-            if (item.getItemName().equals(filename)){
-                return item;
-            }
-        }
-        return null;
-    }
-
 
     public void del(String filepathern){
         filepathern.toLowerCase();
 
-        int type = 0;
+        int type = 4;
         //Determina si es folder 2, file 1 o filepathern 3
         if (filepathern.contains("*")) {
             type = 3;
@@ -301,30 +294,35 @@ public class FileSystem {
             type = 2;
             filepathern=filepathern+"/"; //dir name
         }
+        //System.out.println("77777");
+        //System.out.println(filepathern);
+        //System.out.println(type);
 
         String rutaFilePathern = currentPath.pathToString()+filepathern;
         ArrayList<Item> newContent = new ArrayList<>();
 
-        if (!existingPath(rutaFilePathern)){
+        if (!existingPath(rutaFilePathern) && type<3){
             type = 4; //no existe archivo
         }
+        //System.out.println(type);
 
 
         switch (type){
             case 1:
                 if (existingPath(rutaFilePathern)) {
                     for (Item item : content) {
-                        System.out.println(item.getLocation().pathToString() + " != " + rutaFilePathern);
+                        //System.out.println(item.getLocation().pathToString() + " != " + rutaFilePathern);
                         if (!item.getLocation().pathToString().equals(rutaFilePathern)) {
-                            System.out.println("test44");
+                            //System.out.println("test44");
                             newContent.add(item);
                         } else {
                             trashcan.add(item);
-                            System.out.println("test4");
+                            //System.out.println("test4");
                         }
                     }
                     System.out.println("\n>> del: se ha eliminado el archivo " + filepathern);
                 }
+                content = newContent;
                 break;
             case 2:
                 if (existingPath(rutaFilePathern)) {
@@ -337,6 +335,8 @@ public class FileSystem {
                     }
                     System.out.println("\n>> del: se ha eliminado el directorio " + filepathern);
                 }
+                content = newContent;
+                break;
             case 3:
                 String extension = "";
                 int dotIndex = filepathern.lastIndexOf('.');
@@ -351,10 +351,10 @@ public class FileSystem {
                         //Si no es .txt Y si contiene el current path
                         if (item.getExtension().equals(extension) && item.getLocation().backToFolderPadre().equals(currentPath.pathToString())) {
                             //entonces lo mandamos a papelera
-                            System.out.println("3433");
-                            System.out.println(paths);
+                            //System.out.println("3433");
+                            //System.out.println(paths);
                             trashcan.add(item);
-                            System.out.println(paths);
+                            //System.out.println(paths);
                         } else {
                             newContent.add(item);
                         }
@@ -395,17 +395,18 @@ public class FileSystem {
 
     @Override
     public String toString() {
-        return "\n#### TU FileSystem ####\n" +
-                "\n~ systemName='" + systemName + '\'' +
-                "\n~ systemDate=" + systemDate +
-                "\n~ logedUser=" + logedUser +
-                "\n~ currentPath='" + currentPath + '\'' +
-                "\n~ drives=" + drives +
-                "\n~ users=" + users +
-                "\n~ paths=" + paths +
-                "\n~ trashcan=" + trashcan +
-                "\n~ content=" + content +
-                '}';
+        return "\n|----------------------------|\n" +
+               "|       TU FileSystem        |\n" +
+               "|----------------------------|\n" +
+               "\n~ systemName  = '" + systemName + '\'' +
+               "\n~ systemDate  = " + systemDate +
+               "\n~ logedUser   = " + logedUser.getUserName() +
+               "\n~ currentPath = '" + currentPath.pathToString() + '\'' +
+               "\n~ drives      = " + drives +
+               "\n~ users       = " + users +
+               "\n~ paths       = " + paths +
+               "\n~ trashcan    = " + trashcan +
+               "\n~ content     = " + content;
     }
 
     public Date getSystemDate() {
@@ -420,76 +421,12 @@ public class FileSystem {
         return currentPath;
     }
 
-    public void setCurrentPath(String currentPath) {
-        currentPath = currentPath.toLowerCase();
-        this.currentPath.ruta = currentPath;
-    }
-
-    public String getSystemName() {
-        return systemName;
-    }
 
     public void setSystemName(String systemName) {
         systemName.toLowerCase();
         this.systemName = systemName;
     }
 
-    public void setSystemDate(Date systemDate) {
-        this.systemDate = systemDate;
-    }
 
-    public void setLogedUser(User logedUser) {
-        this.logedUser = logedUser;
-    }
-
-    public void setCurrentPath(Path currentPath) {
-        this.currentPath = currentPath;
-    }
-
-    public List<Drive> getDrives() {
-        return drives;
-    }
-
-    public void setDrives(List<Drive> drives) {
-        this.drives = drives;
-    }
-
-    public List<User> getUsers() {
-        return users;
-    }
-
-    public void setUsers(List<User> users) {
-        this.users = users;
-    }
-
-    public List<Path> getPaths() {
-        return paths;
-    }
-
-    public void setPaths(List<Path> paths) {
-        this.paths = paths;
-    }
-
-    public List<Item> getTrashcan() {
-        return trashcan;
-    }
-
-    public void setTrashcan(List<Item> trashcan) {
-        this.trashcan = trashcan;
-    }
-
-    public List<Item> getContent() {
-        return content;
-    }
-
-    public void setContent(List<Item> content) {
-        this.content = content;
-    }
 }
 
-/*
-for (Drive drive : drives) {
-        letters.add(drive.getLetter());
-        }
-
- */

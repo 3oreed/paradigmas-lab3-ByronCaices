@@ -6,23 +6,6 @@ import java.util.Date;
 
 public class Folder extends Item implements IFolder {
 
-    public Folder(){
-        this.itemName = "";
-        this.createDate = null;
-        this.modDate = null;
-        this.location = null;
-        this.creator = "";
-    }
-
-    public Folder(String name, FileSystem fl){
-        name.toLowerCase();
-        this.itemName = name;
-        this.createDate = fl.getSystemDate();
-        this.modDate = fl.getSystemDate();
-        this.location = new Path(fl.getCurrentPath().pathToString()+itemName);
-        this.creator = fl.getLogedUser().getUserName();
-    }
-
     public Folder(String name){
         name.toLowerCase();
         this.itemName = name;
@@ -33,12 +16,75 @@ public class Folder extends Item implements IFolder {
     }
 
     @Override
-    public boolean isFolder(){
-        if (extension==""){
+    public String getItemName() {
+        return itemName;
+    }
+
+
+    @Override
+    public void setCreateDate(Date createDate) {
+        this.createDate = createDate;
+
+    }
+
+    @Override
+    public Date getModDate() {
+        return getModDate();
+    }
+
+    @Override
+    public void setModDate(Date modDate) {
+        this.modDate=modDate;
+
+    }
+
+    @Override
+    public Path getLocation() {
+        return location;
+    }
+
+    @Override
+    public void setLocation(Path location) {
+        this.location=location;
+
+    }
+
+
+    @Override
+    public void setCreator(String creator) {
+        this.creator=creator;
+    }
+
+    @Override
+    public String getExtension() {
+        return extension;
+    }
+
+    @Override
+    public void setExtension(String extension) {
+        this.extension=extension;
+
+    }
+
+    @Override
+    public String getText() {
+        return text;
+    }
+
+    @Override
+    public void setText(String text) {
+        this.text=text;
+
+    }
+
+    @Override
+    public boolean isFile(){
+        if (extension!=""){
             return true;
         }
         return false;
     }
+
 
 
     @Override
@@ -49,6 +95,6 @@ public class Folder extends Item implements IFolder {
                 ", modDate=" + modDate +
                 ", location='" + location + '\'' +
                 ", creator=" + creator +
-                '}';
+                '}'+"\n              ";
     }
 }

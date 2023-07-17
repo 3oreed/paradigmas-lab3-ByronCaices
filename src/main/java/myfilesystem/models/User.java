@@ -26,15 +26,9 @@ public class User implements IUser {
         return userName;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName.toLowerCase();
-    }
-
 
     @Override
     public String toString() {
-        return "User{" +
-                "userName='" + userName + '\'' +
-                '}';
+        return userName;
     }
 }

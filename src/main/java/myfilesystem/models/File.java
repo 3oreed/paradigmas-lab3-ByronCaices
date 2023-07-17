@@ -5,12 +5,11 @@ import myfilesystem.interfaces.IFile;
 import java.util.Date;
 
 public class File extends Item implements IFile {
-    //String extension;
-    //String text;
+
 
     public File(String name, FileSystem fl){
         name.toLowerCase();
-        this.itemName = name;
+        this.itemName = name.toLowerCase();
         this.createDate = fl.getSystemDate();
         this.modDate = fl.getSystemDate();
         this.location = new Path(fl.getCurrentPath().pathToString()+itemName);
@@ -19,6 +18,75 @@ public class File extends Item implements IFile {
         this.text = "";
     }
 
+
+    @Override
+    public String getItemName() {
+        return itemName;
+    }
+
+
+    @Override
+    public void setCreateDate(Date createDate) {
+        this.createDate = createDate;
+
+    }
+
+    @Override
+    public Date getModDate() {
+        return getModDate();
+    }
+
+    @Override
+    public void setModDate(Date modDate) {
+        this.modDate=modDate;
+
+    }
+
+    @Override
+    public Path getLocation() {
+        return location;
+    }
+
+    @Override
+    public void setLocation(Path location) {
+        this.location=location;
+
+    }
+
+    @Override
+    public void setCreator(String creator) {
+        this.creator=creator;
+    }
+
+    @Override
+    public String getExtension() {
+        return extension;
+    }
+
+    @Override
+    public void setExtension(String extension) {
+        this.extension=extension;
+
+    }
+
+    @Override
+    public String getText() {
+        return text;
+    }
+
+    @Override
+    public void setText(String text) {
+        this.text=text;
+
+    }
+
+    @Override
+    public boolean isFile(){
+        if (extension!=""){
+            return true;
+        }
+        return false;
+    }
 
 
     public String getExtFromName(String filename) {
@@ -34,75 +102,6 @@ public class File extends Item implements IFile {
         //System.out.println("La extensión del archivo es: " + extension);
     }
 
-    public File() {
-        super();
-    }
-
-    public String getExtension() {
-        return extension;
-    }
-
-    public String getText() {
-        return text;
-    }
-
-    @Override
-    public String getItemName() {
-        return super.getItemName();
-    }
-
-    @Override
-    public void setItemName(String itemName) {
-        super.setItemName(itemName);
-    }
-
-    @Override
-    public Date getCreateDate() {
-        return super.getCreateDate();
-    }
-
-    @Override
-    public void setCreateDate(Date createDate) {
-        super.setCreateDate(createDate);
-    }
-
-    @Override
-    public Date getModDate() {
-        return super.getModDate();
-    }
-
-    @Override
-    public void setModDate(Date modDate) {
-        super.setModDate(modDate);
-    }
-
-    @Override
-    public Path getLocation() {
-        return super.getLocation();
-    }
-
-    @Override
-    public void setLocation(Path location) {
-        super.setLocation(location);
-    }
-
-    @Override
-    public String getCreator() {
-        return super.getCreator();
-    }
-
-    @Override
-    public void setCreator(String creator) {
-        super.setCreator(creator);
-    }
-
-    @Override
-    public boolean isFile(){
-        if (extension!=""){
-            return true;
-        }
-        return false;
-    }
 
 
     @Override
@@ -113,6 +112,6 @@ public class File extends Item implements IFile {
                 ", itemName='" + itemName + '\'' +
                 ", location='" + location + '\'' +
                 ", creator=" + creator +
-                '}';
+                '}'+"\n              ";
     }
 }

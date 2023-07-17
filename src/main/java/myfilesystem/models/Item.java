@@ -16,87 +16,44 @@ public abstract class Item implements IItem {
     String text;
 
 
-    public Item() {}
-
-    public String getItemName() {
-        return itemName;
+    public Item() {
+        this.itemName = "";
+        this.createDate = null;
+        this.modDate = null;
+        this.location = null;
+        this.creator = "";
+        this.extension = "";
+        this.text = "";
     }
 
-    public void setItemName(String itemName) {
-        this.itemName = itemName;
-    }
-
-    public Date getCreateDate() {
-        return createDate;
-    }
-
-    public void setCreateDate(Date createDate) {
-        this.createDate = createDate;
-    }
-
-    public Date getModDate() {
-        return modDate;
-    }
-
-    public void setModDate(Date modDate) {
-        this.modDate = modDate;
-    }
-
-    public Path getLocation() {
-        return location;
-    }
-
-    public void setLocation(Path location) {
-        this.location = location;
-    }
+    public abstract String getItemName();
 
 
-    public String getCreator() {
-        return creator;
-    }
+    public abstract void setCreateDate(Date createDate);
 
-    public void setCreator(String creator) {
-        this.creator = creator;
-    }
+    public abstract Date getModDate();
 
-    public String getExtension() {
-        return extension;
-    }
+    public abstract void setModDate(Date modDate);
 
-    public void setExtension(String extension) {
-        this.extension = extension;
-    }
+    public abstract Path getLocation();
 
-    public String getText() {
-        return text;
-    }
+    public abstract void setLocation(Path location);
 
-    public void setText(String text) {
-        this.text = text;
-    }
 
-    public boolean isFolder(){
-        if (extension==""){
-            return true;
-        }
-        return false;
-    }
+    public abstract void setCreator(String creator);
 
-    public boolean isFile(){
-        if (extension!=""){
-            return true;
-        }
-        return false;
-    }
+    public abstract String getExtension();
 
-    /*
-    public Item(String name, FileSystem fl){
-        this.itemName = name;
-        this.createDate = fl.getSystemDate();
-        this.modDate = fl.getSystemDate();
-        this.location = fl.getCurrentPath();
-        this.creator = fl.getLogedUser();
-        //this.extension
-    }
- */
+    public abstract void setExtension(String extension);
+
+    public abstract String getText();
+
+    public abstract void setText(String text);
+
+    public abstract boolean isFile();
+
+
+
+
+
 }

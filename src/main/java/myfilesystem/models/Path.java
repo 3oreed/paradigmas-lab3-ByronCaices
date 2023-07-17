@@ -1,6 +1,8 @@
 package myfilesystem.models;
 
-public class Path {
+import myfilesystem.interfaces.IPath;
+
+public class Path implements IPath {
     String ruta;
 
     public Path() {
@@ -30,19 +32,7 @@ public class Path {
     }
 
 
-    public String backToFolderPadre2() {
 
-        //c:/folder1/ -> c:/folder1
-        String aux = ruta.substring(0,ruta.length()-1);
-        int ultimoIndice = aux.lastIndexOf("/");
-
-        if (ultimoIndice > 0 && !isRoot()){
-
-            this.ruta = aux.substring(0,ultimoIndice+1);
-
-            }
-        return ruta;
-        }
 
     public String backToFolderPadre() {
 
@@ -59,7 +49,7 @@ public class Path {
         }
         return res;
     }
-        //return this.ruta = ruta;
+
 
 
     public String backToRoot() {
@@ -78,9 +68,7 @@ public class Path {
 
     @Override
     public String toString() {
-        return "Path{" +
-                "path='" + ruta + '\'' +
-                '}';
+        return ruta+"\n               ";
     }
 
 
