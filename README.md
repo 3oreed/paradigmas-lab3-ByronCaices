@@ -15,7 +15,15 @@ Gradle 7.4 (Opcional)
 
 ## Cómo ejecutar el programa
 
-#### 1. Ejecutable .jar
+Se tienen dos alternativas:
+
+#### 1. Proyecto integrado con Gradle (7.4)
+
+Una opcion es ejecutar el programa utilizando las opciones que nos permite Gradle
+
+Por ejemplo abriendo el proyecto en un IDE como IntelliJ.
+
+#### 2. Ejecutable .jar
 El proyecto posee un Executable Java File (.jar) el cual se ejecuta por consola con el comando:
 ```
 java -jar EJECUTABLE_lab3_20915795_Caices.jar
@@ -25,11 +33,7 @@ Se debe de ubicar en la carpeta donde está el .jar para que el comando funcione
 
 Luego de ejecutar el programa solo hay que seguir las instrucciones por pantalla.
 
-#### 2. Proyecto integrado con Gradle (7.4)
 
-Una opcion es ejecutar el programa utilizando las opciones que nos permite Gradle
-
-Por ejemplo abriendo el proyecto en un IDE como IntelliJ.
 
 --------------------------------------------------------------------------------
 
