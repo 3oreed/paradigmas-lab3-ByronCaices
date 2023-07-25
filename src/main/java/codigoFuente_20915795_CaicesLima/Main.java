@@ -2,7 +2,7 @@ package codigoFuente_20915795_CaicesLima;
 
 import codigoFuente_20915795_CaicesLima.ui_20915795_CaicesLima.Menu_20915795_CaicesLima;
 
-public class Main_20915795_CaicesLima {
+public class Main {
 
     public static void main(String[] args) {
         Menu_20915795_CaicesLima myMenu = new Menu_20915795_CaicesLima();

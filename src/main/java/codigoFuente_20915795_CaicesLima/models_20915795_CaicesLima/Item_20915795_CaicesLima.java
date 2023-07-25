@@ -41,5 +41,7 @@ public abstract class Item_20915795_CaicesLima implements IItem_20915795_CaicesL
     public abstract String getText();
     public abstract void setText(String text);
     public abstract boolean isFile();
+    public abstract Item_20915795_CaicesLima itemClone();
+
 
 }

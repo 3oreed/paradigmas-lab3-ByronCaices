@@ -1,8 +1,7 @@
 package codigoFuente_20915795_CaicesLima.ui_20915795_CaicesLima;
 
 import codigoFuente_20915795_CaicesLima.interfaces_20915795_CaicesLima.IMenu_20915795_CaicesLima;
-import codigoFuente_20915795_CaicesLima.models_20915795_CaicesLima.File_20915795_CaicesLima;
-import codigoFuente_20915795_CaicesLima.models_20915795_CaicesLima.FileSystem_20915795_CaicesLima;
+import codigoFuente_20915795_CaicesLima.models_20915795_CaicesLima.*;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -335,10 +334,36 @@ public class Menu_20915795_CaicesLima implements IMenu_20915795_CaicesLima {
                     System.out.println("---------------------------------------------------------");
 
                     //Metodo+addOp
-                    File_20915795_CaicesLima newFile = new File_20915795_CaicesLima(addfilename,fileSystem);
-                    newFile.setText(addfiletext);
-                    fileSystem.addFile(newFile);
-                    opsHistory.add("addFile: Se agrego el archivo "+addfilename+ " en la ruta actual <-- " + new Date());
+                    String extension = "";
+
+                    int dotIndex = addfilename.lastIndexOf('.');
+
+                    if (dotIndex >= 0) {
+                        extension = addfilename.substring(dotIndex + 1);
+                    }
+
+
+                    if ("docx,doc,pdf".contains(extension)){
+                        FileDoc_20915795_CaicesLima newFile = new FileDoc_20915795_CaicesLima(addfilename,fileSystem);
+                        newFile.setText(addfiletext);
+                        fileSystem.addFile(newFile);
+                        opsHistory.add("addFile: Se agrego el DOCUMENTO "+addfilename+ " en la ruta actual <-- " + new Date());
+                    } else if ("java,js,py,pl,rkt".contains(extension)) {
+                        FileCode_20915795_CaicesLima newFile = new FileCode_20915795_CaicesLima(addfilename,fileSystem);
+                        newFile.setText(addfiletext);
+                        fileSystem.addFile(newFile);
+                        opsHistory.add("addFile: Se agrego el CODIGO "+addfilename+ " en la ruta actual <-- " + new Date());
+                    }else {
+                        FileText_20915795_CaicesLima newFile = new FileText_20915795_CaicesLima(addfilename,fileSystem);
+                        newFile.setText(addfiletext);
+                        fileSystem.addFile(newFile);
+                        opsHistory.add("addFile: Se agrego el ARCHIVO DE TEXTO "+addfilename+ " en la ruta actual <-- " + new Date());
+                    }
+
+                    //File_20915795_CaicesLima newFile = new File_20915795_CaicesLima(addfilename,fileSystem);
+                    //newFile.setText(addfiletext);
+                    //fileSystem.addFile(newFile);
+                    //opsHistory.add("addFile: Se agrego el archivo "+addfilename+ " en la ruta actual <-- " + new Date());
                     break;
 
                 case 12:

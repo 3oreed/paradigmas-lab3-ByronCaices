@@ -159,4 +159,19 @@ public class Folder_20915795_CaicesLima extends Item_20915795_CaicesLima impleme
         this.text=text;
 
     }
+    @Override
+    public Folder_20915795_CaicesLima itemClone(){
+
+        Folder_20915795_CaicesLima newFolder = new Folder_20915795_CaicesLima("");
+
+        newFolder.itemName = itemName;
+        newFolder.createDate = createDate;
+        newFolder.modDate = modDate;
+        newFolder.location = location;
+        newFolder.creator = creator;
+        newFolder.extension = "";
+        newFolder.text = "";
+
+        return newFolder;
+    }
 }

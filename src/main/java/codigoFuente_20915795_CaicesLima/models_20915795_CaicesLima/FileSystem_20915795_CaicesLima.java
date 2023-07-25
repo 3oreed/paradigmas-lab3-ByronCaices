@@ -237,7 +237,27 @@ public class FileSystem_20915795_CaicesLima implements IFileSystem_20915795_Caic
 
         Path_20915795_CaicesLima newFilePath = new Path_20915795_CaicesLima(currentPath.pathToString()+newfile.getItemName());
         newfile.setLocation(new Path_20915795_CaicesLima(currentPath.pathToString()+newfile.getItemName()));
-        //System.out.println("## LOCATION: "+ newfile.getLocation().pathToString());
+
+        //-------------------------------------------
+        String extension = "";
+
+        int dotIndex = newfile.getItemName().lastIndexOf('.');
+
+        if (dotIndex >= 0) {
+            extension = newfile.getItemName().substring(dotIndex + 1);
+        }
+
+        String addfileoutput = "\n>> addFile: el archivo "+newfile.getItemName()+" ha sido anadido en la ruta actual";
+
+
+        if ("docx,doc,pdf".contains(extension)){
+            addfileoutput = "\n>> addFile: Se agrego el DOCUMENTO "+newfile.getItemName()+ " en la ruta actual <-- " + new Date();
+        } else if ("java,js,py,pl,rkt".contains(extension)) {
+            addfileoutput = "\n>> addFile: Se agrego el CODIGO "+newfile.getItemName()+ " en la ruta actual <-- " + new Date();
+        }else {
+            addfileoutput = "\n>> addFile: Se agrego el ARCHIVO DE TEXTO "+newfile.getItemName()+ " en la ruta actual <-- " + new Date();
+        }
+        //---------------------------------------
 
 
         if (existingPath(newFilePath)) {
@@ -266,7 +286,7 @@ public class FileSystem_20915795_CaicesLima implements IFileSystem_20915795_Caic
             //System.out.println(newfile.getLocation().pathToString());
             content.add(newfile);
             paths.add(newfile.getLocation());
-            System.out.println("\n>> addFile: el archivo "+newfile.getItemName()+" ha sido anadido en la ruta actual");
+            System.out.println(addfileoutput);
         }
     }
     //################################### RF12: DEL ########################################
@@ -386,6 +406,152 @@ public class FileSystem_20915795_CaicesLima implements IFileSystem_20915795_Caic
 
         }
     }
+    //################################### RF13: COPY ########################################
+    /**
+     * Descripción: Metodo para copiar uno o varios archivos. Tambien puede eliminar directorios y su contenido.
+     * @param filepathern: Filename o Filepathern (*.ext || *.* || *) .
+     * @author Byron Caices
+     *
+     */
+    //RF13
+    //@Override
+    public void copy(String filepathern,String targetPath){
+        filepathern.toLowerCase();
+        targetPath.toLowerCase();
+        boolean folderflag = true;
+
+        int type = 4;
+        //Determina si es folder 2, file 1 o filepathern 3
+        if (filepathern.contains("*")) {
+            type = 3;
+        } else if (filepathern.contains(".") && !filepathern.contains("*")) {
+            type = 1;
+        }
+        else{
+            type = 2;
+            filepathern=filepathern+"/"; //dir name
+        }
+
+
+        String rutaFilePathern = currentPath.pathToString()+filepathern;
+        //ArrayList<Item_20915795_CaicesLima> newContent = new ArrayList<>();
+        ArrayList<Item_20915795_CaicesLima> copiedContent = new ArrayList<>();
+
+        if (!existingPath(rutaFilePathern) && type<3){
+            type = 4; //no existe archivo
+        }
+        //System.out.println(type);
+
+
+        switch (type){
+            case 1: //copia UN File
+                if (existingPath(rutaFilePathern)) {
+
+                    for (Item_20915795_CaicesLima item : content) {
+
+                        if (!item.getLocation().pathToString().equals(rutaFilePathern)) {
+
+                            //newContent.add(item);
+                        } else {
+                            //en vez de eliminarlo, lo agregare a la lista que quiero
+                            Item_20915795_CaicesLima newItem = item.itemClone();
+                            Path_20915795_CaicesLima newRuta = new Path_20915795_CaicesLima(targetPath);
+                            newItem.setLocation(newRuta);
+                            //copiedContent.add(newItem);
+                            content.add(newItem);
+                            paths.add(newRuta);
+
+                        }
+                    }
+                    System.out.println("\n>> del: se ha eliminado el archivo " + filepathern);
+                }
+                //content = newContent;
+                break;
+            case 2: //copia Folder
+
+                if (existingPath(rutaFilePathern)) {
+                    for (Item_20915795_CaicesLima item : content) {
+
+
+
+                        if (!item.getLocation().pathToString().contains(rutaFilePathern)) {
+                            //newContent.add(item);
+                        } else {
+                            if (folderflag) {
+                                targetPath = targetPath+item.getItemName();
+                            }
+
+                            folderflag = false;
+                            Item_20915795_CaicesLima newItem = item.itemClone();
+
+                            Path_20915795_CaicesLima newRuta = new Path_20915795_CaicesLima(targetPath + item.getItemName());
+
+                            //newRuta = new Path_20915795_CaicesLima(targetPath + item.getItemName());
+
+                            newItem.setLocation(newRuta);
+                            //copiedContent.add(newItem);
+                            content.add(newItem);
+                            paths.add(newRuta);
+                        }
+                    }
+                    System.out.println("\n>> del: se ha eliminado el directorio " + filepathern);
+                }
+                //content = newContent;
+                break;
+            case 3:
+                String extension = "";
+                int dotIndex = filepathern.lastIndexOf('.');
+                if (dotIndex >= 0) {
+                    extension = filepathern.substring(dotIndex + 1);
+                }
+
+                if (filepathern.equals("*." + extension) && extension.length()>1) {
+
+                    for (Item_20915795_CaicesLima item : content) {
+                        //si extension es igual y se encuentra en el current path
+                        //Si no es .txt Y si contiene el current path
+                        if (item.getExtension().equals(extension) && item.getLocation().backToFolderPadre().equals(currentPath.pathToString())) {
+                            //entonces lo mandamos a papelera
+
+                            Item_20915795_CaicesLima newItem = item.itemClone();
+                            copiedContent.add(newItem);
+
+                        } else {
+                            //newContent.add(item);
+                        }
+                    }
+                    System.out.println("\n>> del: se han eliminado todos los archivos ."+ extension +" de la ruta actual");
+                    //content = newContent; //agrega lista con los .extension eliminados
+                }
+                // ### 2 borrar todos los archivos de una ruta
+                else if (filepathern.equals("*.*") || filepathern.equals("*")) {
+                    //ArrayList<Item> newContent = new ArrayList<>();
+                    for (Item_20915795_CaicesLima item : content) {
+
+                        //(si es File y se encuentra en el current path) me lo salto
+                        //si es folder y se encuentra en el current path -- pa dentro
+                        //si es file y no se encuentra en el current path -- pa dentro
+                        if (item.isFile() && item.getLocation().backToFolderPadre().equals(currentPath.pathToString())) {
+                            //lo mando a la papelera
+                            Item_20915795_CaicesLima newItem = item.itemClone();
+                            copiedContent.add(newItem);
+                        } else {
+                            //newContent.add(item);
+                        }
+                    }
+                    System.out.println("\n>> del: se han eliminado todos los archivos de la ruta actual");
+                    //content = newContent;
+                }
+                break;
+
+            default:
+                System.out.println("\n>> del: el item que intentas eliminar no existe en al ruta actual");
+                break;
+
+        }
+
+    }
+
 
     //################################### VERIFICADORES DE EXISTENCIA ########################################
     /**

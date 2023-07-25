@@ -20,6 +20,7 @@ public interface IFileSystem_20915795_CaicesLima {
     void cd(String pathname);
     void addFile(File_20915795_CaicesLima newfile);
     void del(String filepathern);
+    void copy(String filepathern,String targetPath);
 
     //################################### VERIFICADORES DE EXISTENCIA ########################################
 

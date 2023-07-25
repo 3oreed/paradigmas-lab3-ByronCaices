@@ -4,7 +4,20 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4ca2514a-c994-4e4c-ad37-3f8698da1372" name="Changes" comment="" />
+    <list default="true" id="4ca2514a-c994-4e4c-ad37-3f8698da1372" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Informe3_20915795_CaicesLima.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/codigoFuente_20915795_CaicesLima/Main_20915795_CaicesLima.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/codigoFuente_20915795_CaicesLima/interfaces_20915795_CaicesLima/IFileSystem_20915795_CaicesLima.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/codigoFuente_20915795_CaicesLima/interfaces_20915795_CaicesLima/IFileSystem_20915795_CaicesLima.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/codigoFuente_20915795_CaicesLima/interfaces_20915795_CaicesLima/IItem_20915795_CaicesLima.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/codigoFuente_20915795_CaicesLima/interfaces_20915795_CaicesLima/IItem_20915795_CaicesLima.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/codigoFuente_20915795_CaicesLima/models_20915795_CaicesLima/FileSystem_20915795_CaicesLima.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/codigoFuente_20915795_CaicesLima/models_20915795_CaicesLima/FileSystem_20915795_CaicesLima.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/codigoFuente_20915795_CaicesLima/models_20915795_CaicesLima/File_20915795_CaicesLima.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/codigoFuente_20915795_CaicesLima/models_20915795_CaicesLima/File_20915795_CaicesLima.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/codigoFuente_20915795_CaicesLima/models_20915795_CaicesLima/Folder_20915795_CaicesLima.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/codigoFuente_20915795_CaicesLima/models_20915795_CaicesLima/Folder_20915795_CaicesLima.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/codigoFuente_20915795_CaicesLima/models_20915795_CaicesLima/Item_20915795_CaicesLima.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/codigoFuente_20915795_CaicesLima/models_20915795_CaicesLima/Item_20915795_CaicesLima.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/codigoFuente_20915795_CaicesLima/ui_20915795_CaicesLima/Menu_20915795_CaicesLima.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/codigoFuente_20915795_CaicesLima/ui_20915795_CaicesLima/Menu_20915795_CaicesLima.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -29,18 +42,7 @@
             <expand>
               <path>
                 <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
-                <item name="projectMenu" type="f1a62948:ProjectNode" />
-              </path>
-              <path>
-                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
-                <item name="projectMenu" type="f1a62948:ProjectNode" />
-                <item name="Tasks" type="e4a08cd1:TasksNode" />
-              </path>
-              <path>
-                <item name="" type="6a2764b6:ExternalProjectsStructure$RootNode" />
-                <item name="projectMenu" type="f1a62948:ProjectNode" />
-                <item name="Tasks" type="e4a08cd1:TasksNode" />
-                <item name="help" type="c8890929:TasksNode$1" />
+                <item name="lab3_20915795_Caices" type="f1a62948:ProjectNode" />
               </path>
             </expand>
             <select />
@@ -75,27 +77,27 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/Byron Caices/Desktop/University/Paradigmas-2023/lab3_20915795_Caices&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settingsdialog.project.gradle&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "last_opened_file_path": "C:/Users/Byron Caices/Desktop/University/lab3_20915795_Caices",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "reference.settingsdialog.project.gradle",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
-  <component name="RunManager" selected="Application.Main_20915795_CaicesLima">
-    <configuration name="Main_20915795_CaicesLima" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+}]]></component>
+  <component name="RunManager" selected="Application.Main">
+    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="ALTERNATIVE_JRE_PATH" value="openjdk-20" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
-      <option name="MAIN_CLASS_NAME" value="codigoFuente_20915795_CaicesLima.Main_20915795_CaicesLima" />
+      <option name="MAIN_CLASS_NAME" value="codigoFuente_20915795_CaicesLima.Main" />
       <module name="lab3_20915795_Caices.main" />
       <extension name="coverage">
         <pattern>
@@ -171,7 +173,7 @@
       <method v="2" />
     </configuration>
     <list>
-      <item itemvalue="Application.Main_20915795_CaicesLima" />
+      <item itemvalue="Application.Main" />
       <item itemvalue="Gradle.lab3_20915795_Caices [help]" />
       <item itemvalue="Gradle.lab3_20915795_Caices [properties]" />
       <item itemvalue="Gradle.projectMenu [build]" />
@@ -180,7 +182,6 @@
       <list>
         <item itemvalue="Gradle.lab3_20915795_Caices [help]" />
         <item itemvalue="Gradle.lab3_20915795_Caices [properties]" />
-        <item itemvalue="Application.Main_20915795_CaicesLima" />
         <item itemvalue="Gradle.projectMenu [build]" />
       </list>
     </recent_temporary>
@@ -201,7 +202,12 @@
       <workItem from="1689135896754" duration="6214000" />
       <workItem from="1689183093636" duration="3228000" />
       <workItem from="1689305238376" duration="102282000" />
-      <workItem from="1689651495540" duration="102000" />
+      <workItem from="1689635678985" duration="48000" />
+      <workItem from="1689651398277" duration="90000" />
+      <workItem from="1689721282021" duration="6865000" />
+      <workItem from="1689734522512" duration="20602000" />
+      <workItem from="1690191650352" duration="636000" />
+      <workItem from="1690243506304" duration="52000" />
     </task>
     <servers />
   </component>
